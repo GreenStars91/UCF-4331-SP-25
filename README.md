@@ -5,7 +5,7 @@ Please add your names here to verify you can access this repo and use git and gi
 
 Griffin Zakow
 
-x
+Zen Himes
 
 x
 
