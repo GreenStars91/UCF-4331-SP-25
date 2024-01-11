@@ -14,7 +14,7 @@ x
 x
 
 [Small Project COP 4331 Spring 2024](https://docs.google.com/spreadsheets/d/1s-LFHDo-LhRSk-qySSRmP91d90C3-cbl4ZDRSnjqeOk/edit#gid=0)
-test
+
 Thank you!! 
 \\\(^ヮ^\)/
 
