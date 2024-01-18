@@ -22,6 +22,11 @@
 		if( $row = $result->fetch_assoc()  )
 		{
 			returnWithInfo( $row['firstName'], $row['lastName'], $row['ID'] );
+			// Update DateLastLoggedIn for Table
+			$stmt2 = $conn->prepare('UPDATE Users SET DateLastLoggedIn=now() WHERE ID=?');
+			$stmt2->bind_param('i', $row['ID']);
+			$stmt2->execute();
+			$stmt2->close();
 		}
 		else
 		{
