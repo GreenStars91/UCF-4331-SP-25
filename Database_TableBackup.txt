@@ -1,0 +1,46 @@
+Database Tables:
+
+Users:
+
+insert into Users (FirstName,LastName,Login,Password) VALUES ('Rick','Leinecker','RickL','COP4331');
+insert into Users (FirstName,LastName,Login,Password) VALUES ('Larry','Mathews','LarryM','COP4331');
+insert into Users (FirstName,LastName,Login,Password) VALUES ('Tom','Ducker','TomD','COP4331');
+insert into Users (FirstName,LastName,Login,Password) VALUES ('Mary','Sue','MaryS','COP4331'); 
+
+Contacts:
+
+insert into Contacts(First, Last, Phone, Email, UserID)VALUES('Dave' ,'Stanely','4076685634','daveyman@knight.ucf','1');
+insert into Contacts(First, Last, Phone, Email,  UserID)VALUES('Flat','Stanely','4079875163','flatyman@knight.ucf','2');
+insert into Contacts(First, Last, Phone, Email, UserID)VALUES('Nick','Star','4079822263','nickSTars@knight.ucf','3');
+insert into Contacts(First, Last, Phone, Email,  UserID)VALUES('John','Cena','40745335163','uCantCME@knight.ucf','2');
+insert into Contacts(First, Last, Phone, Email, UserID)VALUES('Mary','Cena','40745335147','uWontCME@knight.ucf','1');
+
+
+Backup Tables:
+
+Users:
+CREATE TABLE COP4331.Users
+(
+ID INT NOT NULL AUTO_INCREMENT ,
+DateCreated DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ,
+DateLastLoggedIn DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ,
+FirstName VARCHAR(50) NOT NULL DEFAULT '' ,
+LastName VARCHAR(50) NOT NULL DEFAULT '' ,
+Login VARCHAR(50) NOT NULL DEFAULT '' ,
+Password VARCHAR(50) NOT NULL DEFAULT '' ,
+PRIMARY KEY (ID)
+) ENGINE = InnoDB; 
+
+Contacts:
+
+CREATE TABLE COP4331.Contacts
+(
+ID INT NOT NULL AUTO_INCREMENT ,
+First VARCHAR(50) NOT NULL DEFAULT '' ,
+Last VARCHAR(50) NOT NULL DEFAULT '' ,
+Phone VARCHAR(50) NOT NULL DEFAULT '' ,
+Email VARCHAR(50) NOT NULL DEFAULT '' ,
+UserID INT NOT NULL DEFAULT '0' ,
+PRIMARY KEY (ID)
+) ENGINE = InnoDB; 
+
