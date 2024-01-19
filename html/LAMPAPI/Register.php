@@ -23,14 +23,29 @@
 	}
     else 
     {
-        // Add User Into Database
-        $CMD = $SQL_DB->prepare("INSERT into Users (Login, Password, FirstName, LastName) 
-        VALUES (?,?,?,?)");
-        $CMD->bind_param("ssss", $login, $psswd, $fName, $lName);
-        $CMD->execute();
+        // Check if user is already in Database
+        $CMD = $SQL_DB->prepare("SELECT Login FROM Users WHERE Login=?");
+        $stmt->bind_param("s", $login);
+		$stmt->execute();
+		$result = $stmt->get_result();
         $CMD->close();
+        if( $row = $result->fetch_assoc() )
+		{
+			sendErrBack("Username Already In Use");
+		}
+		else
+		{
+			// Add User Into Database
+            $CMD = $SQL_DB->prepare("INSERT into Users (Login, Password, FirstName, LastName) 
+            VALUES (?,?,?,?)");
+            $CMD->bind_param("ssss", $login, $psswd, $fName, $lName);
+            $CMD->execute();
+            $CMD->close();
+
+            sendErrBack("");
+		}
+        
         $SQL_DB->close();
-        sendErrBack("");
     }
 
     // Send JSON file back which holds $err as error
