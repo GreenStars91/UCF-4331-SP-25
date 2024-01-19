@@ -1,0 +1,129 @@
+swagger: '2.0'
+
+info:
+  version: 0.0.1
+  title: Small Project 25
+  description: Group 25s small project for COP4331
+  contact:
+    email: griffin.zakow@ucf
+    
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+paths:
+  /Login.php:
+    post:
+      tags:
+      - Users
+      summary: Logs into Contact Manager
+      operationID: 25Login
+      description: Logs into Contact Manager
+      consumes:
+      - application/json
+      produses:
+      - application/json
+      parameters:
+      - in: body
+        name: loginItem
+        description: Login
+        schema:
+          $ref: '#/definitions/Login'
+      responses: 
+        200:
+          description: OK
+          schema:
+            $ref: '#/definitions/LoginResponse'
+        404:
+          description: URL Not Found
+        500:
+          description: Server Error
+  /Register.php:
+    post:
+      tags:
+      - Users
+      summary: Register User for Contact Manager
+      operationID: 25Register
+      description: Register User for Contact Manager
+      consumes:
+      - application/json
+      produses:
+      - application/json
+      parameters:
+      - in: body
+        name: RegisterItem
+        description: Register
+        schema:
+          $ref: '#/definitions/Register'
+      responses: 
+        200:
+          description: OK
+          schema:
+            $ref: '#/definitions/RegisterResponse'
+        404:
+          description: URL Not Found
+        500:
+          description: Server Error
+        
+definitions:
+  Login:
+    type: object
+    required:
+    - login
+    - password
+    properties:
+      login:
+        type: string
+        example: "LarryM"
+      password:
+        type: string
+        example: "COP4331"
+  LoginResponse:
+    type: object
+    properties: 
+      id:
+        type: integer
+        description: The user ID
+        example: 2
+      firstName:
+        type: string
+        example: "Larry"
+        description: First Name of User
+      lastName:
+        type: string
+        example: "Mathews"
+        description: Last Name of User
+      error:
+        type: string
+        description: Error Responce of API. Empty for no error.
+        example: ""
+  Register:
+    type: object
+    required:
+    - login
+    - password
+    - firstName
+    - lastName
+    properties:
+      login:
+        type: string
+        example: "TestLogin1"
+      password:
+        type: string
+        example: "TestPassword"
+      firstName:
+        type: string
+        example: "Testman"
+      lastName:
+        type: string
+        example: "Tempingtion"
+  RegisterResponse:
+    type: object
+    properties: 
+      error:
+        type: string
+        description: Error Responce of API. Empty for no error.
+        example: ""
+host: cop4331-group25.xyz
+basePath: /LAMPAPI
+schemes: 
+- http
