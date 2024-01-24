@@ -200,7 +200,6 @@ function doRegister()
 	let tmp = {username, password, firstName, lastName};
 	let jsonPayload = JSON.stringify( tmp );
 	let url = urlBase + '/Register.' + extension;
-	
 	let xhr = new XMLHttpRequest();
 	xhr.open("POST", url, true);
 	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
@@ -211,6 +210,7 @@ function doRegister()
 			if (this.readyState == 4 && this.status == 200) 
 			{
 				document.getElementById("registerResult").innerHTML = "Sucessfully registered";
+				backToLogin();
 			}
 		};
 		xhr.send(jsonPayload);
