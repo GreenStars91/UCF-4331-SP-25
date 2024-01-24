@@ -185,17 +185,38 @@ function searchColor()
 }
 function goToRegister()
 {
-	userId = 0;
-	firstName = "";
-	lastName = "";
-	document.cookie = "firstName= ; expires = Thu, 01 Jan 1970 00:00:00 GMT";
 	window.location.href = "register.html";
 }
 function backToLogin()
 {
-	userId = 0;
-	firstName = "";
-	lastName = "";
-	document.cookie = "firstName= ; expires = Thu, 01 Jan 1970 00:00:00 GMT";
 	window.location.href = "index.html";
+}
+function doRegister()
+{
+	let firstName = document.getElementById("enterFName").value;
+	let	lastName = document.getElementById("enterLName").value;
+	let username = document.getElementById("registerUsername").value;
+	let password = document.getElementById("registerPassword").value;
+	let tmp = {username, password, firstName, lastName};
+	let jsonPayload = JSON.stringify( tmp );
+	let url = urlBase + '/Register.' + extension;
+	
+	let xhr = new XMLHttpRequest();
+	xhr.open("POST", url, true);
+	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+	try
+	{
+		xhr.onreadystatechange = function() 
+		{
+			if (this.readyState == 4 && this.status == 200) 
+			{
+				document.getElementById("registerResult").innerHTML = "Sucessfully registered";
+			}
+		};
+		xhr.send(jsonPayload);
+	}
+	catch(err)
+	{
+		document.getElementById("registerResult").innerHTML = err.message;
+	}
 }
