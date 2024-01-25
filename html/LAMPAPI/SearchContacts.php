@@ -20,9 +20,9 @@
 	} 
 	else
 	{
-		$stmt = $conn->prepare("SELECT ID,First,Last,Phone,Email WHERE UserID=? AND 
+		$stmt = $conn->prepare("SELECT ID,First,Last,Phone,Email FROM Contacts WHERE UserID=? AND 
         (First LIKE ? OR Last LIKE ? OR Phone LIKE ? OR Email LIKE ?)");
-		$searchData = "'%" . $search . "%'";
+		$searchData = "%" . $search . "%";
 		$stmt->bind_param("sssss", $userID, $searchData, $searchData, $searchData, $searchData);
 		$stmt->execute();
 		
@@ -57,11 +57,11 @@
                 $first = 0;
             }
 
-            $resultValue .= '{"id":' . $contact['ID'] 
+            $resultValue .= '{"id":' . $contact['ID'] .','
                 . '"firstName":"'. $contact['First'] .'",' 
                 . '"lastName":"'. $contact['Last']. '",'
                 . '"Phone":"' .$contact['Phone']. '",' 
-                . '"Email":"'. $contact['Email'].'}';
+                . '"Email":"'. $contact['Email'].'"}';
             
         }
         $retval = '{"results":[' . $resultValue . '],"error":""}';
