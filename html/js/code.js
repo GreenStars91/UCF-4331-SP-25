@@ -195,9 +195,9 @@ function doRegister()
 {
 	let firstName = document.getElementById("enterFName").value;
 	let	lastName = document.getElementById("enterLName").value;
-	let username = document.getElementById("registerUsername").value;
+	let login = document.getElementById("registerUsername").value;
 	let password = document.getElementById("registerPassword").value;
-	let tmp = {username, password, firstName, lastName};
+	let tmp = {login, password, firstName, lastName};
 	let jsonPayload = JSON.stringify( tmp );
 	let url = urlBase + '/Register.' + extension;
 	let xhr = new XMLHttpRequest();
@@ -209,11 +209,11 @@ function doRegister()
 		{
 			if (this.readyState == 4 && this.status == 200) 
 			{
-				document.getElementById("registerResult").innerHTML = "Sucessfully registered";
-				backToLogin();
+				document.getElementById("registerResult").innerHTML = "Register Successful";
 			}
 		};
 		xhr.send(jsonPayload);
+		
 	}
 	catch(err)
 	{
