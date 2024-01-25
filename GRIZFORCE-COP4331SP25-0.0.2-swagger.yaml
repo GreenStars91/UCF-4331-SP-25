@@ -1,7 +1,7 @@
 swagger: '2.0'
 
 info:
-  version: 0.0.1
+  version: 0.0.2
   title: Small Project 25
   description: Group 25s small project for COP4331
   contact:
@@ -37,6 +37,43 @@ paths:
           description: URL Not Found
         500:
           description: Server Error
+  /SearchContacts.php:
+    post:
+      tags:
+      - ContactOperation
+      summary: Fetches contacts based on a search query.
+      operationID: 25ContactsSearch
+      description: 
+        Fetches contacts based on a search query. If the input is misformatted, return a 400 error. If UserID is blank, return no contacts. If search is blank, return all contacts by user.
+      parameters:
+      - in: body
+        name: loginItem
+        description: Login
+        schema:
+          $ref: '#/definitions/CSearch'
+      responses: 
+        200:
+          description: OK
+          schema:
+            $ref: '#/definitions/CSearchResponse'
+        404:
+          description: URL Not Found
+        400:
+          description: Error in input formatting (Bad Request)
+          schema:
+            type: object
+            properties:
+              results:
+                type: array
+                items: {}
+                example: []
+              error:
+                type: string
+                example: "Bad Input Formatting"
+                
+                
+        500:
+          description: Server Error
   /Register.php:
     post:
       tags:
@@ -61,6 +98,7 @@ paths:
             $ref: '#/definitions/RegisterResponse'
         404:
           description: URL Not Found
+          
         500:
           description: Server Error
         
@@ -122,6 +160,43 @@ definitions:
       error:
         type: string
         description: Error Responce of API. Empty for no error.
+        example: ""
+  CSearch:
+    type: object
+    required:
+    - userID
+    properties:
+      search:
+        type: string
+        example: "Mary"
+      userID:
+        type: int
+        example: 1
+  CSearchResponse:
+    type: object
+    properties:
+      results:
+        type: array
+        items:
+          type: object
+          properties:
+            id:
+              type: int
+              example: 4
+            firstName:
+              type: string
+              example: "Mary"
+            lastName: 
+              type: string
+              example: "Cena"
+            phone:
+              type: string
+              example: "40745335147"
+            email:
+              type: string
+              example: "uWontCME@knight.ucf"
+      error:
+        type: string
         example: ""
 host: cop4331-group25.xyz
 basePath: /LAMPAPI
