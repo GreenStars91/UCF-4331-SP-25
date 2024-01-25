@@ -20,8 +20,9 @@
 	} 
 	else
 	{
-		$stmt = $conn->prepare("SELECT ID,First,Last,Phone,Email WHERE ID=? AND (First=? OR Last=? OR Phone=? OR Email=?)");
-		$searchData = "%" . $search . "%";
+		$stmt = $conn->prepare("SELECT ID,First,Last,Phone,Email WHERE UserID=? AND 
+        (First LIKE ? OR Last LIKE ? OR Phone LIKE ? OR Email LIKE ?)");
+		$searchData = "'%" . $search . "%'";
 		$stmt->bind_param("sssss", $userID, $searchData, $searchData, $searchData, $searchData);
 		$stmt->execute();
 		
