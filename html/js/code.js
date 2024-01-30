@@ -113,7 +113,7 @@ function addColor()
 	let newColor = document.getElementById("colorText").value;
 	document.getElementById("colorAddResult").innerHTML = "";
 
-	let tmp = {color:newColor,userId,userId};
+	let tmp = {color:newColor,userId:userId};
 	let jsonPayload = JSON.stringify( tmp );
 
 	let url = urlBase + '/AddColor.' + extension;
@@ -271,8 +271,8 @@ function addContact()
 	let newEmail = document.getElementById("emailText").value;
 
 	document.getElementById("contactAddResult").innerHTML = "";
-
-	let tmp = {firstName:newFirstName, lastName:newLastName, phone:newPhoneNumber, email: newEmail, userId:userId};
+	document.getElementById("contactAddResult").innerHTML = newFirstName + "," + newLastName + "," + newPhoneNumber + "," + newEmail;
+	let tmp = {firstName:newFirstName, lastName:newLastName, phone:newPhoneNumber, email: newEmail, userId: userId};
 	let jsonPayload = JSON.stringify( tmp );
 	document.getElementById("contactAddResult").innerHTML = jsonPayload;
 
