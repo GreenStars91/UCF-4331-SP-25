@@ -26,8 +26,8 @@
         // Check if user is already in Database
         $CMD = $SQL_DB->prepare("SELECT Login FROM Users WHERE Login=?");
         $CMD->bind_param("s", $login);
-	$CMD->execute();
-	$result = $CMD->get_result();
+	    $CMD->execute();
+	    $result = $CMD->get_result();
         if( $row = $result->fetch_assoc() )
 		{
 			sendErrBack("Username Already In Use");
