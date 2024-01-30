@@ -220,7 +220,8 @@ function doRegister()
 		document.getElementById("registerResult").innerHTML = err.message;
 	}
 }
-function searchContact()
+
+function searchContacts()
 {
 	let srch = document.getElementById("searchText").value;
 	document.getElementById("contactSearchResult").innerHTML = "";
@@ -263,19 +264,16 @@ function searchContact()
 		document.getElementById("colorSearchResult").innerHTML = err.message;
 	}
 }
+
 function addContact()
 {
+	document.getElementById("contactAddResult").innerHTML = "";
 	let newFirstName = document.getElementById("firstNameText").value;
 	let newLastName = document.getElementById("lastNameText").value;
 	let newPhoneNumber = document.getElementById("phoneNumber").value;
 	let newEmail = document.getElementById("emailText").value;
-
-	document.getElementById("contactAddResult").innerHTML = "";
-	document.getElementById("contactAddResult").innerHTML = newFirstName + "," + newLastName + "," + newPhoneNumber + "," + newEmail;
 	let tmp = {firstName:newFirstName, lastName:newLastName, phone:newPhoneNumber, email: newEmail, userId: userId};
 	let jsonPayload = JSON.stringify( tmp );
-	document.getElementById("contactAddResult").innerHTML = jsonPayload;
-
 	let url = urlBase + '/AddContact.' + extension;
 	
 	let xhr = new XMLHttpRequest();
