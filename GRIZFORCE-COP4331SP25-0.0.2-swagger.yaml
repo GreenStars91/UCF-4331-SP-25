@@ -1,7 +1,7 @@
 swagger: '2.0'
 
 info:
-  version: 0.0.2
+  version: 0.0.1
   title: Small Project 25
   description: Group 25s small project for COP4331
   contact:
@@ -101,6 +101,72 @@ paths:
           
         500:
           description: Server Error
+  /AddContact.php:
+    post:
+      tags:
+      - Users
+      summary: Adds Contact into Database
+      operationID: 25AddContact
+      description: Add Contact into Database
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: contactItem
+        description: Contact
+        schema:
+          $ref: '#/definitions/Contact'
+      responses:
+        200:
+          description: OK
+        404: 
+          description: URL Not Found
+  /DeleteContact.php:
+    post:
+      tags:
+      - Users
+      summary: Deletes Contact from Database
+      operationID: 25DeleteContact
+      description: Deletes Contact from Database
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: deleteContactItem
+        description: DeleteContact
+        schema:
+          $ref: '#/definitions/DeleteContact'
+      responses:
+        200:
+          description: OK
+        404: 
+          description: URL Not Found
+  /UpdateContact.php:
+    post:
+      tags:
+      - Users
+      summary: Update Contact in Database
+      operationID: 25UpdateContact
+      description: Update Contact in Database
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: updateContactItem
+        description: UpdateContact
+        schema:
+          $ref: '#/definitions/UpdateContact'
+      responses:
+        200:
+          description: OK
+        404: 
+          description: URL Not Found
         
 definitions:
   Login:
@@ -170,7 +236,7 @@ definitions:
         type: string
         example: "Mary"
       userID:
-        type: int
+        type: integer
         example: 1
   CSearchResponse:
     type: object
@@ -181,7 +247,7 @@ definitions:
           type: object
           properties:
             id:
-              type: int
+              type: integer
               example: 4
             firstName:
               type: string
@@ -198,6 +264,62 @@ definitions:
       error:
         type: string
         example: ""
+  Contact:
+    type: object
+    required:
+    - userId
+    - firstName
+    - lastName
+    - phone
+    - email
+    properties:
+      userId:
+        type: integer
+        example: 1
+      firstName:
+        type: string
+        example: "John"
+      lastName:
+        type: string
+        example: "Doe"
+      phone:
+        type: string
+        example: "407-310-5064"
+      email:
+        type: string
+        example: "realemail@ucf.edu"
+  DeleteContact:
+    type: object
+    required:
+    - contactID
+    properties:
+      contactID:
+        type: integer
+        example: 1
+  UpdateContact:
+    type: object
+    required:
+    - contactID
+    - firstName
+    - lastName
+    - phone
+    - email
+    properties:
+      contactID:
+        type: integer
+        example: 1
+      firstName:
+        type: string
+        example: "John"
+      lastName:
+        type: string
+        example: "Doe"
+      phone:
+        type: string
+        example: "407-310-5064"
+      email:
+        type: string
+        example: "realemail@ucf.edu"
 host: cop4331-group25.xyz
 basePath: /LAMPAPI
 schemes: 
