@@ -7,14 +7,14 @@
     $inData = getRequestInfo();
 
     // Check for all keys
-    $keyarray = ["firstName", "lastName", "phone", "email", "userId", "page"];
+    $keyarray = ["firstName", "lastName", "phone", "email", "userID", "page"];
     if (0 === count(array_diff($keyarray, array_keys($inData))))
     {
         $fName = "%" . $inData["firstName"] . "%";
         $lName = "%" . $inData["lastName"] . "%";
         $phone = "%" . $inData["phone"] . "%";
         $email = "%" . $inData["email"] . "%";
-        $userID = $inData["userId"];
+        $userID = $inData["userID"];
         $page = $inData["page"] * $CONTACTS_PER_PAGE;
     }
     else

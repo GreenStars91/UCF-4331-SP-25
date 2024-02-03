@@ -1,0 +1,396 @@
+swagger: '2.0'
+
+info:
+  version: 0.0.4
+  title: Small Project 25
+  description: Group 25s small project for COP4331
+  contact:
+    email: griffin.zakow@ucf
+    
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+paths:
+  /Login.php:
+    post:
+      tags:
+      - Users
+      summary: Logs into Contact Manager
+      operationID: 25Login
+      description: Logs into Contact Manager
+      consumes:
+      - application/json
+      produses:
+      - application/json
+      parameters:
+      - in: body
+        name: loginItem
+        description: Login
+        schema:
+          $ref: '#/definitions/Login'
+      responses: 
+        200:
+          description: OK
+          schema:
+            $ref: '#/definitions/LoginResponse'
+        404:
+          description: URL Not Found
+        500:
+          description: Server Error
+  /SearchContactFields.php:
+    post:
+      tags:
+      - ContactOperation
+      summary: Fetches contacts based on a search query for specific fields.
+      operationID: 25FieldsSearch
+      description: 
+        Fetches contacts based on a search query. If the input is misformatted, return a 400 error. If UserId is blank, return no contacts. If search is blank, return all contacts by user. Returns 10 contacts -> page * 10 to page * 10 + 9. 
+      parameters:
+      - in: body
+        name: SearchItem
+        description: Search
+        schema:
+          $ref: '#/definitions/FSearch'
+      responses: 
+        200:
+          description: OK
+          schema:
+            $ref: '#/definitions/SearchResponse'
+        404:
+          description: URL Not Found
+        400:
+          description: Error in input formatting (Bad Request)
+          schema:
+            type: object
+            properties:
+              results:
+                type: array
+                items: {}
+                example: []
+              error:
+                type: string
+                example: "Bad Input Formatting"
+                
+                
+        500:
+          description: Server Error
+  /SearchContacts.php:
+    post:
+      tags:
+      - ContactOperation
+      summary: Fetches contacts based on a search query. 
+      operationID: 25ContactsSearch
+      description: 
+        Fetches contacts based on a search query. If the input is misformatted, return a 400 error. If UserID is blank, return no contacts. If search is blank, return all contacts by user. Returns 10 contacts -> page * 10 to page * 10 + 9. If page is not set, the page value is 0.
+      parameters:
+      - in: body
+        name: SearchItem
+        description: Search
+        schema:
+          $ref: '#/definitions/CSearch'
+      responses: 
+        200:
+          description: OK
+          schema:
+            $ref: '#/definitions/SearchResponse'
+        404:
+          description: URL Not Found
+        400:
+          description: Error in input formatting (Bad Request)
+          schema:
+            type: object
+            properties:
+              results:
+                type: array
+                items: {}
+                example: []
+              error:
+                type: string
+                example: "Bad Input Formatting"
+                
+                
+        500:
+          description: Server Error
+  /Register.php:
+    post:
+      tags:
+      - Users
+      summary: Register User for Contact Manager
+      operationID: 25Register
+      description: Register User for Contact Manager
+      consumes:
+      - application/json
+      produses:
+      - application/json
+      parameters:
+      - in: body
+        name: RegisterItem
+        description: Register
+        schema:
+          $ref: '#/definitions/Register'
+      responses: 
+        200:
+          description: OK
+          schema:
+            $ref: '#/definitions/RegisterResponse'
+        404:
+          description: URL Not Found
+          
+        500:
+          description: Server Error
+  /AddContact.php:
+    post:
+      tags:
+      - Users
+      summary: Adds Contact into Database
+      operationID: 25AddContact
+      description: Add Contact into Database
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: contactItem
+        description: Contact
+        schema:
+          $ref: '#/definitions/Contact'
+      responses:
+        200:
+          description: OK
+        404: 
+          description: URL Not Found
+  /DeleteContact.php:
+    post:
+      tags:
+      - Users
+      summary: Deletes Contact from Database
+      operationID: 25DeleteContact
+      description: Deletes Contact from Database
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: deleteContactItem
+        description: DeleteContact
+        schema:
+          $ref: '#/definitions/DeleteContact'
+      responses:
+        200:
+          description: OK
+        404: 
+          description: URL Not Found
+  /UpdateContact.php:
+    post:
+      tags:
+      - Users
+      summary: Update Contact in Database
+      operationID: 25UpdateContact
+      description: Update Contact in Database
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: updateContactItem
+        description: UpdateContact
+        schema:
+          $ref: '#/definitions/UpdateContact'
+      responses:
+        200:
+          description: OK
+        404: 
+          description: URL Not Found
+        
+definitions:
+  Login:
+    type: object
+    required:
+    - login
+    - password
+    properties:
+      login:
+        type: string
+        example: "LarryM"
+      password:
+        type: string
+        example: "COP4331"
+  LoginResponse:
+    type: object
+    properties: 
+      id:
+        type: integer
+        description: The user ID
+        example: 2
+      firstName:
+        type: string
+        example: "Larry"
+        description: First Name of User
+      lastName:
+        type: string
+        example: "Mathews"
+        description: Last Name of User
+      error:
+        type: string
+        description: Error Responce of API. Empty for no error.
+        example: ""
+  Register:
+    type: object
+    required:
+    - login
+    - password
+    - firstName
+    - lastName
+    properties:
+      login:
+        type: string
+        example: "TestLogin1"
+      password:
+        type: string
+        example: "TestPassword"
+      firstName:
+        type: string
+        example: "Testman"
+      lastName:
+        type: string
+        example: "Tempingtion"
+  RegisterResponse:
+    type: object
+    properties: 
+      error:
+        type: string
+        description: Error Responce of API. Empty for no error.
+        example: ""
+  CSearch:
+    type: object
+    required:
+    - userID
+    - search
+    properties:
+      search:
+        type: string
+        example: "Mary C"
+      userID:
+        type: integer
+        example: 1
+      page:
+        type: integer
+        example: 0
+  FSearch:
+    type: object
+    required:
+    - userID
+    - firstName
+    - lastName
+    - phone
+    - email
+    - page
+    properties:
+      firstName:
+        type: string
+        example: "Mary"
+      lastName:
+        type: string
+        example: "C"
+      phone:
+        type: string
+        example: ""
+      email:
+        type: string
+        example: ""
+      userID:
+        type: integer
+        example: 1
+      page:
+        type: integer
+        example: 0
+  SearchResponse:
+    type: object
+    properties:
+      results:
+        type: array
+        items:
+          type: object
+          properties:
+            id:
+              type: integer
+              example: 4
+            firstName:
+              type: string
+              example: "Mary"
+            lastName: 
+              type: string
+              example: "Cena"
+            phone:
+              type: string
+              example: "40745335147"
+            email:
+              type: string
+              example: "uWontCME@knight.ucf"
+        maxItems: 10
+      error:
+        type: string
+        example: ""
+  Contact:
+    type: object
+    required:
+    - userID
+    - firstName
+    - lastName
+    - phone
+    - email
+    properties:
+      userID:
+        type: integer
+        example: 1
+      firstName:
+        type: string
+        example: "John"
+      lastName:
+        type: string
+        example: "Doe"
+      phone:
+        type: string
+        example: "407-310-5064"
+      email:
+        type: string
+        example: "realemail@ucf.edu"
+  DeleteContact:
+    type: object
+    required:
+    - contactID
+    properties:
+      contactID:
+        type: integer
+        example: 1
+  UpdateContact:
+    type: object
+    required:
+    - contactID
+    - firstName
+    - lastName
+    - phone
+    - email
+    properties:
+      contactID:
+        type: integer
+        example: 1
+      firstName:
+        type: string
+        example: "John"
+      lastName:
+        type: string
+        example: "Doe"
+      phone:
+        type: string
+        example: "407-310-5064"
+      email:
+        type: string
+        example: "realemail@ucf.edu"
+host: cop4331-group25.xyz
+basePath: /LAMPAPI
+schemes: 
+- http
