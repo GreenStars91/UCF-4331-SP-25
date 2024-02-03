@@ -1,22 +1,21 @@
 <?php
-// SearchContact.php - Created by Griffin on 01/24/24
-// Updated on 2/3/24 for improved search and paging
+// SearchContactFields.php - Created by Griffin on 02/3/24
+// Updated From SearchContats.php to better support the website
+// Page Starts at 0.
 
     $CONTACTS_PER_PAGE = 10;
     $inData = getRequestInfo();
 
     // Check for all keys
-    $keyarray = ["search", "userID"];
+    $keyarray = ["firstName", "lastName", "phone", "email", "userId", "page"];
     if (0 === count(array_diff($keyarray, array_keys($inData))))
     {
-        $searchData = "%" . $inData["search"] . "%";
-        $userID = $inData["userID"];
-        if (!array_key_exists("page", $inData)) {
-            $page = 0;
-        }
-        else {
-            $page = $inData["page"] * $CONTACTS_PER_PAGE;
-        }
+        $fName = "%" . $inData["firstName"] . "%";
+        $lName = "%" . $inData["lastName"] . "%";
+        $phone = "%" . $inData["phone"] . "%";
+        $email = "%" . $inData["email"] . "%";
+        $userID = $inData["userId"];
+        $page = $inData["page"] * $CONTACTS_PER_PAGE;
     }
     else
     {
@@ -24,7 +23,6 @@
         returnWithError("Bad Input Formatting");
         return;
     }
-
     $conn = new mysqli("localhost", "TheBeast", "WeLoveCOP4331", "COP4331");
 	if ($conn->connect_error) 
 	{
@@ -33,10 +31,9 @@
 	else
 	{
 		$stmt = $conn->prepare("SELECT ID,First,Last,Phone,Email FROM Contacts WHERE UserID=? AND 
-        (concat(First, ' ', Last) LIKE ? OR Phone LIKE ? OR Email LIKE ?) LIMIT ?,?");
-		$stmt->bind_param("ssssii", $userID, $searchData, $searchData, $searchData, $page, $CONTACTS_PER_PAGE);
+        (First LIKE ? AND Last LIKE ? AND  Phone LIKE ? AND Email LIKE ?) LIMIT ?,?");
+		$stmt->bind_param("sssssii", $userID, $fName, $lName, $phone, $email, $page, $CONTACTS_PER_PAGE);
 		$stmt->execute();
-        
 		
 		$result = $stmt->get_result();
 		

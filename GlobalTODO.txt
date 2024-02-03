@@ -1,4 +1,6 @@
-Global TODO:
-	[ ] Set up In-Person Meetings
-	[ ] Decide Group Roles
-	[ ] Plan out project
+Small Project TODO:
+
+Griffin Zakow:
+Update search so that the contats are in alphabetical order (last name)
+Update Register so that Empty users Cannot Register (Maybe Frontend?)
+Search Pageination.
