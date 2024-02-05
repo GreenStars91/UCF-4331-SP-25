@@ -223,15 +223,103 @@ function doRegister()
 
 function searchContacts()
 {
-	let srch = document.getElementById("searchText").value;
+	let fNameSrch = document.getElementById("fNameSearch").value;
+	let lNameSrch = document.getElementById("lNameSearch").value;
+	let	phoneSrch = document.getElementById("phoneNumberSearch").value;
+	let emailSearch = document.getElementById("emailSearch").value;
+
 	document.getElementById("contactSearchResult").innerHTML = "";
 	
 	let contactList = "";
 
-	let tmp = {search:srch,userId:userId};
+	let tmp = {firstName: fNameSrch, lastName: lNameSrch, phone: phoneSrch, email: emailSearch, userID: userId, page: 0};
 	let jsonPayload = JSON.stringify( tmp );
 
-	let url = urlBase + '/SearchContacts.' + extension;
+	let url = urlBase + '/SearchContactFields.' + extension;
+	
+	let xhr = new XMLHttpRequest();
+	xhr.open("POST", url, true);
+	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+	try
+	{
+		xhr.onreadystatechange = function() 
+		{
+			if (this.readyState == 4 && this.status == 200) 
+			{
+				document.getElementById("contactSearchResult").innerHTML = xhr.responseText;
+				let jsonObject = JSON.parse( xhr.responseText );
+				let jsonData = jsonObject.results;
+
+				let container = document.getElementById("contactTable");
+				while (container.firstChild)
+				{
+					container.removeChild(container.firstChild);
+				}
+				// Create the table element
+				let table = document.createElement("table");
+				
+				// Create the header element
+				let thead = document.createElement("thead");
+				let tr = document.createElement("tr");
+				
+				// Loop through the column names and create header cells
+				let th = document.createElement("th");
+				th.innerText = "First Name";
+				tr.appendChild(th);
+				th = document.createElement("th");
+				th.innerText = "Last Name";
+				tr.appendChild(th);
+				th = document.createElement("th");
+				th.innerText = "Phone Number";
+				tr.appendChild(th);
+				th = document.createElement("th");
+				th.innerText = "Email";
+				tr.appendChild(th);
+				jsonData.forEach(o => delete o.id)
+				thead.appendChild(tr); // Append the header row to the header
+				table.append(tr) // Append the header to the table
+				
+				// Loop through the JSON data and create table rows
+				jsonData.forEach((item) => {
+				   let tr = document.createElement("tr");
+				   
+				   // Get the values of the current object in the JSON data
+				   let vals = Object.values(item);
+				   
+				   // Loop through the values and create table cells
+				   vals.forEach((elem) => {
+					  let td = document.createElement("td");
+					  td.innerText = elem; // Set the value as the text of the table cell
+					  tr.appendChild(td); // Append the table cell to the table row
+				   });
+				   table.appendChild(tr); // Append the table row to the table
+				});
+				container.appendChild(table) // Append the table to the container element
+			}
+		};
+		xhr.send(jsonPayload);
+	}
+	catch(err)
+	{
+		document.getElementById("colorSearchResult").innerHTML = err.message;
+	}
+}
+
+function nextPage()
+{
+	let fNameSrch = document.getElementById("fNameSearch").value;
+	let lNameSrch = document.getElementById("lNameSearch").value;
+	let	phoneSrch = document.getElementById("phoneNumberSearch").value;
+	let emailSearch = document.getElementById("emailSearch").value;
+
+	document.getElementById("contactSearchResult").innerHTML = "";
+	
+	let contactList = "";
+
+	let tmp = {firstName: fNameSrch, lastName: lNameSrch, phone: phoneSrch, email: emailSearch, userID: userId, page: 0};
+	let jsonPayload = JSON.stringify( tmp );
+
+	let url = urlBase + '/SearchContactsFields.' + extension;
 	
 	let xhr = new XMLHttpRequest();
 	xhr.open("POST", url, true);
