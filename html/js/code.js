@@ -5,7 +5,11 @@ let userId = 0;
 let firstName = "";
 let lastName = "";
 let contactID = 0;
-
+let pageNum = 0
+let fNameSrch = "";
+let lNameSrch = "";
+let phoneSrch = "";
+let emailSrch = "";
 function doLogin()
 {
 	userId = 0;
@@ -222,18 +226,20 @@ function doRegister()
 	}
 }
 
+function searchButtonClick()
+{
+	fNameSrch = document.getElementById("fNameSearch").value;
+	lNameSrch = document.getElementById("lNameSearch").value;
+	phoneSrch = document.getElementById("phoneNumberSearch").value;
+	emailSrch = document.getElementById("emailSearch").value;
+	pageNum = 0;
+	searchContacts();
+}
 function searchContacts()
 {
-	let fNameSrch = document.getElementById("fNameSearch").value;
-	let lNameSrch = document.getElementById("lNameSearch").value;
-	let	phoneSrch = document.getElementById("phoneNumberSearch").value;
-	let emailSearch = document.getElementById("emailSearch").value;
-
 	document.getElementById("contactSearchResult").innerHTML = "";
-	
-	let contactList = "";
 
-	let tmp = {firstName: fNameSrch, lastName: lNameSrch, phone: phoneSrch, email: emailSearch, userID: userId, page: 0};
+	let tmp = {firstName: fNameSrch, lastName: lNameSrch, phone: phoneSrch, email: emailSrch, userID: userId, page: pageNum};
 	let jsonPayload = JSON.stringify( tmp );
 
 	let url = urlBase + '/SearchContactFields.' + extension;
@@ -247,10 +253,8 @@ function searchContacts()
 		{
 			if (this.readyState == 4 && this.status == 200) 
 			{
-				document.getElementById("contactSearchResult").innerHTML = xhr.responseText;
 				let jsonObject = JSON.parse( xhr.responseText );
 				let jsonData = jsonObject.results;
-
 				let container = document.getElementById("contactTable");
 				while (container.firstChild)
 				{
@@ -306,9 +310,11 @@ function searchContacts()
 	}
 	catch(err)
 	{
-		document.getElementById("colorSearchResult").innerHTML = err.message;
+		document.getElementById("contactSearchResult").innerHTML = err.message;
 	}
 }
+
+
 
 // higlight and get contact ID.
 function highlightOnly(Crow)
@@ -323,54 +329,6 @@ function highlightOnly(Crow)
 	Crow.classList.add("highlight");
 	contactID = Crow.dataset.ID;
 	console.log("Console ID:" + contactID);
-}
-
-function nextPage()
-{
-	let fNameSrch = document.getElementById("fNameSearch").value;
-	let lNameSrch = document.getElementById("lNameSearch").value;
-	let	phoneSrch = document.getElementById("phoneNumberSearch").value;
-	let emailSearch = document.getElementById("emailSearch").value;
-
-	document.getElementById("contactSearchResult").innerHTML = "";
-	
-	let contactList = "";
-
-	let tmp = {firstName: fNameSrch, lastName: lNameSrch, phone: phoneSrch, email: emailSearch, userID: userId, page: 0};
-	let jsonPayload = JSON.stringify( tmp );
-
-	let url = urlBase + '/SearchContactsFields.' + extension;
-	
-	let xhr = new XMLHttpRequest();
-	xhr.open("POST", url, true);
-	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
-	try
-	{
-		xhr.onreadystatechange = function() 
-		{
-			if (this.readyState == 4 && this.status == 200) 
-			{
-				document.getElementById("contactSearchResult").innerHTML = "Contact(s) has been retrieved";
-				let jsonObject = JSON.parse( xhr.responseText );
-				
-				for( let i=0; i<jsonObject.results.length; i++ )
-				{
-					contactList += jsonObject.results[i];
-					if( i < jsonObject.results.length - 1 )
-					{
-						contactList += "<br />\r\n";
-					}
-				}
-				
-				document.getElementsByTagName("p")[0].innerHTML = contactList;
-			}
-		};
-		xhr.send(jsonPayload);
-	}
-	catch(err)
-	{
-		document.getElementById("colorSearchResult").innerHTML = err.message;
-	}
 }
 
 function addContact()

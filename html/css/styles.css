@@ -65,6 +65,17 @@ body
     opacity: 50%;
 }
 
+
+#outer
+{
+    width:100%;
+    text-align: center;
+}
+.inner
+{
+    display: inline-block;
+}
+
 #loginName
 {
 	font-size: 30px;

@@ -32,6 +32,10 @@
 	<button type="button" id="searchContactButton" class="buttons" onclick="searchContacts();"> Search Contact </button><br />
 	<span id="contactSearchResult"></span>
 	<div id="contactTable"></div>
+	<div id="outer">
+		<div class="inner"><button type="button" id="prevPage" class="buttons" onclick="prevPage();" disabled = "true"> < </button></div>
+		<div class="inner"><button type="button" id="nextPage" class="buttons" onclick="nextPage();" disabled = "true"> > </button></div>
+	</div>
 	<br /><br />
 	<label>Contact to Add</label>
 	<input type="text" id="firstNameText" placeholder="First Name">
