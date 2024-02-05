@@ -411,6 +411,7 @@ function addContact()
 	let newEmail = document.getElementById("emailText").value;
 	let tmp = {firstName:newFirstName, lastName:newLastName, phone:newPhoneNumber, email: newEmail, userID: userId};
 	let jsonPayload = JSON.stringify( tmp );
+	console.log(jsonPayload);
 	let url = urlBase + '/AddContact.' + extension;
 	
 	let xhr = new XMLHttpRequest();
