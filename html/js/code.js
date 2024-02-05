@@ -4,6 +4,7 @@ const extension = 'php';
 let userId = 0;
 let firstName = "";
 let lastName = "";
+let contactID = 0;
 
 function doLogin()
 {
@@ -257,7 +258,6 @@ function searchContacts()
 				}
 				// Create the table element
 				let table = document.createElement("table");
-				
 				// Create the header element
 				let thead = document.createElement("thead");
 				let tr = document.createElement("tr");
@@ -275,22 +275,27 @@ function searchContacts()
 				th = document.createElement("th");
 				th.innerText = "Email";
 				tr.appendChild(th);
-				jsonData.forEach(o => delete o.id)
+				// jsonData.forEach(o => delete o.id)
 				thead.appendChild(tr); // Append the header row to the header
 				table.append(tr) // Append the header to the table
-				
 				// Loop through the JSON data and create table rows
 				jsonData.forEach((item) => {
 				   let tr = document.createElement("tr");
-				   
+				   tr.onclick = function () {highlightOnly(this);};
 				   // Get the values of the current object in the JSON data
 				   let vals = Object.values(item);
-				   
 				   // Loop through the values and create table cells
-				   vals.forEach((elem) => {
-					  let td = document.createElement("td");
-					  td.innerText = elem; // Set the value as the text of the table cell
-					  tr.appendChild(td); // Append the table cell to the table row
+				   vals.forEach((elem, index) => {
+					  //Skip First index
+					  if (index == 0)
+					  {
+						tr.dataset.ID = elem;
+					  } else
+					  {
+					  	let td = document.createElement("td");
+					 	td.innerText = elem; // Set the value as the text of the table cell
+						tr.appendChild(td); // Append the table cell to the table row
+					  }
 				   });
 				   table.appendChild(tr); // Append the table row to the table
 				});
@@ -303,6 +308,21 @@ function searchContacts()
 	{
 		document.getElementById("colorSearchResult").innerHTML = err.message;
 	}
+}
+
+// higlight and get contact ID.
+function highlightOnly(Crow)
+{
+	// Clear Table
+	let tableR = Array.from(Crow.parentElement.children);
+	tableR.forEach( (elm, index) => {
+		if (index != 0) {
+			elm.classList.remove("highlight");
+		}
+	});
+	Crow.classList.add("highlight");
+	contactID = Crow.dataset.ID;
+	console.log("Console ID:" + contactID);
 }
 
 function nextPage()
@@ -384,3 +404,4 @@ function addContact()
 	}
 	
 }
+``
