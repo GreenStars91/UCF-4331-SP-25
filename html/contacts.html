@@ -24,17 +24,16 @@
 
 <div id="accessUIDiv">
 	<br />
-
 	<input type="text" id="fNameSearch"  placeholder="First Name"/>
 	<input type="text" id="lNameSearch" placeholder="Last Name"/>
 	<input type="text" id="phoneNumberSearch" placeholder="Phone"/>
 	<input type="text" id="emailSearch" placeholder="Email"/>
-	<button type="button" id="searchContactButton" class="buttons" onclick="searchContacts();"> Search Contact </button><br />
+	<button type="button" id="searchContactButton" class="buttons" onclick="searchButtonClick();"> Search Contact </button><br />
 	<span id="contactSearchResult"></span>
 	<div id="contactTable"></div>
 	<div id="outer">
-		<div class="inner"><button type="button" id="prevPage" class="buttons" onclick="prevPage();" disabled = "true"> < </button></div>
-		<div class="inner"><button type="button" id="nextPage" class="buttons" onclick="nextPage();" disabled = "true"> > </button></div>
+		<div class="inner"><button type="button" id="prevPage" class="buttons" onclick="prevPage();" > < </button></div>
+		<div class="inner"><button type="button" id="nextPage" class="buttons" onclick="nextPage();" > > </button></div>
 	</div>
 	<br /><br />
 	<label>Contact to Add</label>

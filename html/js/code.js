@@ -5,11 +5,13 @@ let userId = 0;
 let firstName = "";
 let lastName = "";
 let contactID = 0;
-let pageNum = 0
+let pageNum = 0;
 let fNameSrch = "";
 let lNameSrch = "";
 let phoneSrch = "";
 let emailSrch = "";
+let returnCount = 0;
+
 function doLogin()
 {
 	userId = 0;
@@ -233,13 +235,55 @@ function searchButtonClick()
 	phoneSrch = document.getElementById("phoneNumberSearch").value;
 	emailSrch = document.getElementById("emailSearch").value;
 	pageNum = 0;
-	searchContacts();
+	returnCount = 0; // Update page if no values are retuned.
+	searchContacts(0, () => {
+		console.log("Return (SP)" + returnCount);
+	});
+
 }
-function searchContacts()
+
+function prevPage() 
+{
+	// Do nothing if page number is zero.
+	if (pageNum == 0)
+	{
+		// TODO Disable class
+		return;
+	}
+	returnCount = 1; // Do not update page if no values are returned.
+	searchContacts(pageNum - 1, () => {
+		if (returnCount != 0)
+		{
+			pageNum -= 1;
+		}
+	});
+	// If search returns values, update page number
+	
+
+}
+
+function nextPage() 
+{
+	// TODO. do not update if disabled (class)
+	returnCount = 1; // Do not update page if no values are returned.
+	console.log("Update " + pageNum);
+	searchContacts(pageNum + 1, ()=> {
+		console.log("Return (NP)" + returnCount);
+		// If search returns values, update page number
+		if (returnCount != 0)
+		{
+		pageNum += 1;
+		}
+		// TODO else disable.
+	});
+	
+}
+
+function searchContacts(PageN = 0, _callback)
 {
 	document.getElementById("contactSearchResult").innerHTML = "";
 
-	let tmp = {firstName: fNameSrch, lastName: lNameSrch, phone: phoneSrch, email: emailSrch, userID: userId, page: pageNum};
+	let tmp = {firstName: fNameSrch, lastName: lNameSrch, phone: phoneSrch, email: emailSrch, userID: userId, page:PageN };
 	let jsonPayload = JSON.stringify( tmp );
 
 	let url = urlBase + '/SearchContactFields.' + extension;
@@ -255,6 +299,17 @@ function searchContacts()
 			{
 				let jsonObject = JSON.parse( xhr.responseText );
 				let jsonData = jsonObject.results;
+				// Do not update if no values are returned and Return Count = 1;
+				if ((returnCount == 1) && (jsonData.length == 0)) 
+				{
+					returnCount = 0;
+					console.log("Return Count" + returnCount);
+					// Run Callback
+					_callback();
+					return;
+				}
+				returnCount = jsonData.length;
+				console.log("Return Count" + returnCount);
 				let container = document.getElementById("contactTable");
 				while (container.firstChild)
 				{
@@ -283,6 +338,7 @@ function searchContacts()
 				thead.appendChild(tr); // Append the header row to the header
 				table.append(tr) // Append the header to the table
 				// Loop through the JSON data and create table rows
+				// TODO. use for loop to do this ten times
 				jsonData.forEach((item) => {
 				   let tr = document.createElement("tr");
 				   tr.onclick = function () {highlightOnly(this);};
@@ -304,6 +360,8 @@ function searchContacts()
 				   table.appendChild(tr); // Append the table row to the table
 				});
 				container.appendChild(table) // Append the table to the container element
+				// Run Callback
+				_callback();
 			}
 		};
 		xhr.send(jsonPayload);
@@ -316,9 +374,16 @@ function searchContacts()
 
 
 
-// higlight and get contact ID.
+// highlight and get contact ID.
 function highlightOnly(Crow)
 {
+	// If row is already highlighted, remove highlight
+	if (Crow.classList.contains("highlight")) {
+		Crow.classList.remove("highlight");
+		contactID = -1;
+		console.log("Console ID Cleared");
+		return;
+	}
 	// Clear Table
 	let tableR = Array.from(Crow.parentElement.children);
 	tableR.forEach( (elm, index) => {
