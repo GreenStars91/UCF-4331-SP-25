@@ -409,7 +409,7 @@ function addContact()
 	let newLastName = document.getElementById("lastNameText").value;
 	let newPhoneNumber = document.getElementById("phoneNumber").value;
 	let newEmail = document.getElementById("emailText").value;
-	let tmp = {firstName:newFirstName, lastName:newLastName, phone:newPhoneNumber, email: newEmail, userId: userId};
+	let tmp = {firstName:newFirstName, lastName:newLastName, phone:newPhoneNumber, email: newEmail, userID: userId};
 	let jsonPayload = JSON.stringify( tmp );
 	let url = urlBase + '/AddContact.' + extension;
 	
