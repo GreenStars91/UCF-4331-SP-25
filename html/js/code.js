@@ -4,7 +4,7 @@ const extension = 'php';
 let userId = 0;
 let firstName = "";
 let lastName = "";
-let contactID = 0;
+let contactID = -1;
 let pageNum = 0;
 let fNameSrch = "";
 let lNameSrch = "";
@@ -361,6 +361,8 @@ function searchContacts(PageN = 0, _callback)
 				});
 				container.appendChild(table) // Append the table to the container element
 				// Run Callback
+				// Disable Buttons
+				document.getElementById("delContactButton").disabled = true;
 				_callback();
 			}
 		};
@@ -382,6 +384,8 @@ function highlightOnly(Crow)
 		Crow.classList.remove("highlight");
 		contactID = -1;
 		console.log("Console ID Cleared");
+		// Disable Delete
+		document.getElementById("delContactButton").disabled = true;
 		return;
 	}
 	// Clear Table
@@ -394,6 +398,8 @@ function highlightOnly(Crow)
 	Crow.classList.add("highlight");
 	contactID = Crow.dataset.ID;
 	console.log("Console ID:" + contactID);
+	// Enable Delete
+	document.getElementById("delContactButton").disabled = false;
 }
 
 function addContact()
@@ -427,4 +433,35 @@ function addContact()
 	}
 	
 }
-``
+
+function delContact() {
+	let cID = contactID;
+	if (cID <= -1)
+	{
+		console.log("Nothing to delete");
+		return
+	}
+	let tmp = {contactID:cID};
+	let jsonPayload = JSON.stringify( tmp );
+	let url = urlBase + '/DeleteContact.' + extension;
+	let xhr = new XMLHttpRequest();
+
+	xhr.open("POST", url, true);
+	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+	try
+	{
+		xhr.onreadystatechange = function() 
+		{
+			if (this.readyState == 4 && this.status == 200) 
+			{
+				document.getElementById("contactAddResult").innerHTML = "Contact has been Deleted";
+				searchContacts(pageNum);
+			}
+		};
+		xhr.send(jsonPayload);
+	}
+	catch(err)
+	{
+		document.getElementById("contactAddResult").innerHTML = err.message;
+	}
+}
