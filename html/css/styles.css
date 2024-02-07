@@ -29,6 +29,7 @@ body
     margin-left: 15%;
     padding: 25px;
     background-color: #b2b2b2;
+    padding-bottom: 0;
 }
 
 #accessUIDiv
@@ -38,6 +39,7 @@ body
     margin-left: 15%;
     padding: 25px;
     background-color: #b2b2b2;
+    padding-top: 0;
 }
 
 
@@ -53,7 +55,7 @@ body
 .buttons
 {
     font-size: 30px;
-    border-radius: 25px;
+    border-radius: 10px;
     width: 50%;
     margin-left: 25%;
     font-family: 'Ubuntu', sans-serif;
@@ -68,18 +70,19 @@ body
 
 #CTRL
 {
-    width:100%;
-    text-align: center;
+    width:95%;
 }
 .float-parent
 {
     width:100%;
-    overflow: scroll;
+    overflow: hidden;
     text-align: center;
+    margin-top: 5%;
 }
 .float-child
 {
-    width:45%;
+    min-width: 346px;
+    width: 50%;
     float:left;
 }
 #CTRL div
@@ -87,9 +90,19 @@ body
     display: inline-block;
 }
 
+#SearchBar {
+  margin-top: 30;
+  font-size: 25;
+}
 #addUpdateButton,#delContactButton
 {
     margin-left: 10%;
+}
+
+
+#aboutBackButton {
+  width: 18%;
+  margin-left: 0;
 }
 
 #loginName
@@ -110,11 +123,11 @@ body
 }
 
 input[type="text"],input[type="password"]{
-    border-radius: 25px;
+    border-radius: 4px;
     text-align: center;
     width: 80%;
     margin-left: 10%;
-    margin-bottom: 2%;
+    margin-bottom: 5px;
     font-family: 'Ubuntu', sans-serif;
 }
 
@@ -149,7 +162,7 @@ input[type="text"],input[type="password"]{
 
 #logoutButton{
     width: 20%;
-    margin-left: 40%;
+    margin-left: 32%;
 }
 
 select{
@@ -218,4 +231,25 @@ select{
     position: relative;
     left: -35px;
     content: '\2A2F';
+}
+
+
+table {
+  border: 2px solid;
+  border-collapse: collapse;
+  background-color: lightblue;
+  text-align: center;
+  width: 100%;
+}
+tr {
+  border: 1px solid;
+}
+td {
+  border: 1px solid darkgray;
+}
+
+#CT {
+}
+#CTRL div .buttons {
+  width: fit-content;
 }
