@@ -24,10 +24,7 @@
 
 <div id="accessUIDiv">
 	<br />
-	<input type="text" id="fNameSearch"  placeholder="First Name"/>
-	<input type="text" id="lNameSearch" placeholder="Last Name"/>
-	<input type="text" id="phoneNumberSearch" placeholder="Phone"/>
-	<input type="text" id="emailSearch" placeholder="Email"/>
+	<input type="text" id="SearchBar"  placeholder="Search Here"/>
 	<button type="button" id="searchContactButton" class="buttons" onclick="searchButtonClick();"> Search Contact </button><br />
 	<span id="contactSearchResult"></span>
 	<div id="contactTable"></div>
@@ -36,14 +33,17 @@
 		<div class="inner"><button type="button" id="nextPage" class="buttons" onclick="nextPage();" > > </button></div>
 	</div>
 	<br /><br />
-	<button type="button" id="delContactButton" class="buttons" onclick="delContact();" disabled> Remove Contact </button><br />
-	<label>Contact to Add</label>
-	<input type="text" id="firstNameText" placeholder="First Name">
-	<input type="text" id="lastNameText" placeholder="Last Name">
-	<input type="text" id="phoneNumber" placeholder="Phone">
-	<input type="text" id="emailText" placeholder="Email">
-	<button type="button" id="addContactButton" class="buttons" onclick="addContact();"> Add Contact </button><br />
-	<span id="contactAddResult"></span>
+	
+	<div id="contactEditor">
+		<label id="editorLabel">Contact to Add</label>
+		<input type="text" id="firstNameText" placeholder="First Name">
+		<input type="text" id="lastNameText" placeholder="Last Name">
+		<input type="text" id="phoneNumber" placeholder="Phone">
+		<input type="text" id="emailText" placeholder="Email">
+		<button type="button" id="addUpdateButton" class="buttons" onclick="addUpdateButton();"> Add Contact </button><br />
+		<button type="button" id="delContactButton" class="buttons" onclick="delContact();" disabled> Remove Contact </button><br />
+		<span id="contactAddResult"></span>
+	</div>
 </div>
 
 </body>

@@ -2,14 +2,13 @@ const urlBase = 'http://cop4331-group25.xyz/LAMPAPI';
 const extension = 'php';
 
 let userId = 0;
+let contactID = -1;
+
 let firstName = "";
 let lastName = "";
-let contactID = -1;
+
 let pageNum = 0;
-let fNameSrch = "";
-let lNameSrch = "";
-let phoneSrch = "";
-let emailSrch = "";
+let searchText = "";
 let returnCount = 0;
 
 function doLogin()
@@ -230,10 +229,7 @@ function doRegister()
 
 function searchButtonClick()
 {
-	fNameSrch = document.getElementById("fNameSearch").value;
-	lNameSrch = document.getElementById("lNameSearch").value;
-	phoneSrch = document.getElementById("phoneNumberSearch").value;
-	emailSrch = document.getElementById("emailSearch").value;
+	searchText = document.getElementById("SearchBar").value;
 	pageNum = 0;
 	returnCount = 0; // Update page if no values are retuned.
 	searchContacts(0, () => {
@@ -283,10 +279,10 @@ function searchContacts(PageN = 0, _callback)
 {
 	document.getElementById("contactSearchResult").innerHTML = "";
 
-	let tmp = {firstName: fNameSrch, lastName: lNameSrch, phone: phoneSrch, email: emailSrch, userID: userId, page:PageN };
+	let tmp = {search: searchText,  userID: userId, page:PageN };
 	let jsonPayload = JSON.stringify( tmp );
 
-	let url = urlBase + '/SearchContactFields.' + extension;
+	let url = urlBase + '/SearchContacts.' + extension;
 	
 	let xhr = new XMLHttpRequest();
 	xhr.open("POST", url, true);
@@ -360,9 +356,8 @@ function searchContacts(PageN = 0, _callback)
 				   table.appendChild(tr); // Append the table row to the table
 				});
 				container.appendChild(table) // Append the table to the container element
+				clearSelected();
 				// Run Callback
-				// Disable Buttons
-				document.getElementById("delContactButton").disabled = true;
 				_callback();
 			}
 		};
@@ -382,10 +377,9 @@ function highlightOnly(Crow)
 	// If row is already highlighted, remove highlight
 	if (Crow.classList.contains("highlight")) {
 		Crow.classList.remove("highlight");
-		contactID = -1;
+		
+		clearSelected();
 		console.log("Console ID Cleared");
-		// Disable Delete
-		document.getElementById("delContactButton").disabled = true;
 		return;
 	}
 	// Clear Table
@@ -400,6 +394,16 @@ function highlightOnly(Crow)
 	console.log("Console ID:" + contactID);
 	// Enable Delete
 	document.getElementById("delContactButton").disabled = false;
+	setUpUpdate(Crow);
+}
+function clearSelected()
+{
+	contactID = -1;
+	// Disable Delete
+	document.getElementById("delContactButton").disabled = true;
+	setUpAdd();
+	return;
+
 }
 
 function addContact()
@@ -424,6 +428,7 @@ function addContact()
 			if (this.readyState == 4 && this.status == 200) 
 			{
 				document.getElementById("contactAddResult").innerHTML = "Contact has been added";
+				searchContacts(pageNum);
 			}
 		};
 		xhr.send(jsonPayload);
@@ -434,7 +439,81 @@ function addContact()
 	}
 	
 }
+function updContact()
+{
+	document.getElementById("contactAddResult").innerHTML = "";
+	let cID = contactID;
+	if (cID == -1){
+		console.log("Error: No contact Selected");
+		return;
+	}
+	let FirstName = document.getElementById("firstNameText").value;
+	let LastName = document.getElementById("lastNameText").value;
+	let PhoneNumber = document.getElementById("phoneNumber").value;
+	let Email = document.getElementById("emailText").value;
+	let tmp = {firstName:FirstName, lastName:LastName, phone:PhoneNumber, email: Email, contactID: cID};
+	let jsonPayload = JSON.stringify( tmp );
+	console.log(jsonPayload);
+	let url = urlBase + '/UpdateContact.' + extension;
+	
+	let xhr = new XMLHttpRequest();
+	xhr.open("POST", url, true);
+	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+	try
+	{
+		xhr.onreadystatechange = function() 
+		{
+			if (this.readyState == 4 && this.status == 200) 
+			{
+				document.getElementById("contactAddResult").innerHTML = "Contact has been Updated";
+				searchContacts(pageNum);
+			}
+		};
+		xhr.send(jsonPayload);
+	}
+	catch(err)
+	{
+		document.getElementById("contactAddResult").innerHTML = err.message;
+	}
+}
+// Set Up Update
+function setUpUpdate(row)
+{
+	if (contactID == -1) {
+		console.log("Update Setup Error");
+		return;
+	}
+	document.getElementById("contactAddResult").innerHTML = "";
+	document.getElementById("addUpdateButton").innerHTML = "Update Contact";
+	document.getElementById("editorLabel").innerHTML = "Contact to Update";
+	document.getElementById("firstNameText").value = row.cells[0].innerText;
+	document.getElementById("lastNameText").value = row.cells[1].innerText;
+	document.getElementById("phoneNumber").value = row.cells[2].innerText;
+	document.getElementById("emailText").value = row.cells[3].innerText;
+}
 
+// Set Up Add
+function setUpAdd()
+{
+	document.getElementById("contactAddResult").innerHTML = "";
+	document.getElementById("addUpdateButton").innerHTML = "Add Contact";
+	document.getElementById("editorLabel").innerHTML = "Contact to Add";
+	document.getElementById("firstNameText").value = "";
+	document.getElementById("lastNameText").value = "";
+	document.getElementById("phoneNumber").value = "";
+	document.getElementById("emailText").value = "";
+}
+
+function addUpdateButton()
+{
+	if (contactID == -1) {
+		addContact();
+	}
+	else {
+		updContact();
+	}
+	
+}
 function delContact() {
 	let cID = contactID;
 	if (cID <= -1)
