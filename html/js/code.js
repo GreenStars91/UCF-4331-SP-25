@@ -215,7 +215,15 @@ function doRegister()
 		{
 			if (this.readyState == 4 && this.status == 200) 
 			{
-				document.getElementById("registerResult").innerHTML = "Register Successful";
+				let jsonResponse = JSON.parse( xhr.responseText) 
+				if (!jsonRespons.error)
+				{
+					document.getElementById("registerResult").innerHTML = "Register Successful";
+				}
+				else
+				{
+					document.getElementById("registerResult").innerHTML =	jsonRespons.error;
+				}
 			}
 		};
 		xhr.send(jsonPayload);
