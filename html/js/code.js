@@ -222,7 +222,7 @@ function doRegister()
 				}
 				else
 				{
-					document.getElementById("registerResult").innerHTML =	jsonRespons.error;
+					document.getElementById("registerResult").innerHTML =	jsonResponse.error;
 				}
 			}
 		};
