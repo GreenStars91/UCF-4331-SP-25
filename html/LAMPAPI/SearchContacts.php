@@ -10,6 +10,7 @@
     if (0 === count(array_diff($keyarray, array_keys($inData))))
     {
         $searchData = "%" . $inData["search"] . "%";
+        $searchArray = preg_split("/[\s,]+/", $inData["search"]);
         $userID = $inData["userID"];
         if (!array_key_exists("page", $inData)) {
             $page = 0;
@@ -24,7 +25,16 @@
         returnWithError("Bad Input Formatting");
         return;
     }
-
+    $Filter = "";
+    // Create Filter
+    foreach ($searchArray as $index => $value) 
+    {
+        if ($index != 0)
+        {
+            $Filter .= " AND ";
+        }
+        $Filter .= "concat(First, ' ', Last, ' ', Phone, ' ', Email) LIKE '%{$value}%'";
+    }
     $conn = new mysqli("localhost", "TheBeast", "WeLoveCOP4331", "COP4331");
 	if ($conn->connect_error) 
 	{
@@ -33,8 +43,8 @@
 	else
 	{
 		$stmt = $conn->prepare("SELECT ID,First,Last,Phone,Email FROM Contacts WHERE UserID=? AND 
-        (concat(First, ' ', Last) LIKE ? OR Phone LIKE ? OR Email LIKE ?) LIMIT ?,?");
-		$stmt->bind_param("ssssii", $userID, $searchData, $searchData, $searchData, $page, $CONTACTS_PER_PAGE);
+        ({$Filter}) LIMIT ?,?");
+		$stmt->bind_param("sii", $userID, $page, $CONTACTS_PER_PAGE);
 		$stmt->execute();
         
 		
