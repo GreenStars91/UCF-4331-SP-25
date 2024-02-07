@@ -14,35 +14,39 @@
 
 </head>
 <body>
+<div id="Header">
+	<h1 id="title">COP 4331 LAMP Stack Demo</h1>
 
-<h1 id="title">COP 4331 LAMP Stack Demo</h1>
-
-<div id="loggedInDiv">
-	<span id="userName"></span><br />
-	<button type="button" id="logoutButton" class="buttons" onclick="doLogout();"> Log Out </button>
+	<div id="loggedInDiv">
+		<span id="userName"></span><br />
+		<button type="button" id="logoutButton" class="buttons" onclick="doLogout();"> Log Out </button>
+	</div>
 </div>
-
 <div id="accessUIDiv">
 	<br />
 	<input type="text" id="SearchBar"  placeholder="Search Here"/>
 	<button type="button" id="searchContactButton" class="buttons" onclick="searchButtonClick();"> Search Contact </button><br />
-	<span id="contactSearchResult"></span>
-	<div id="contactTable"></div>
-	<div id="outer">
-		<div class="inner"><button type="button" id="prevPage" class="buttons" onclick="prevPage();" > < </button></div>
-		<div class="inner"><button type="button" id="nextPage" class="buttons" onclick="nextPage();" > > </button></div>
-	</div>
-	<br /><br />
-	
-	<div id="contactEditor">
-		<label id="editorLabel">Contact to Add</label>
-		<input type="text" id="firstNameText" placeholder="First Name">
-		<input type="text" id="lastNameText" placeholder="Last Name">
-		<input type="text" id="phoneNumber" placeholder="Phone">
-		<input type="text" id="emailText" placeholder="Email">
-		<button type="button" id="addUpdateButton" class="buttons" onclick="addUpdateButton();"> Add Contact </button><br />
-		<button type="button" id="delContactButton" class="buttons" onclick="delContact();" disabled> Remove Contact </button><br />
-		<span id="contactAddResult"></span>
+
+	<div class="float-parent">
+		<div class="float-child">
+			<span id="contactSearchResult"></span>
+			<div id="contactTable"></div>
+			<div id="CTRL">
+				<div><button type="button" id="prevPage" class="buttons" onclick="prevPage();" > &#8592; </button></div>
+				<div><button type="button" id="nextPage" class="buttons" onclick="nextPage();" > &#8594; </button></div>
+			</div>
+		</div>
+		
+		<div class="float-child" id="contactEditor">
+			<label id="editorLabel">Contact to Add</label>
+			<input type="text" id="firstNameText" placeholder="First Name">
+			<input type="text" id="lastNameText" placeholder="Last Name">
+			<input type="text" id="phoneNumber" placeholder="Phone">
+			<input type="text" id="emailText" placeholder="Email">
+			<button type="button" id="addUpdateButton" class="buttons" onclick="addUpdateButton();"> Add Contact </button><br />
+			<button type="button" id="delContactButton" class="buttons" onclick="delContact();" disabled> Remove Contact </button><br />
+			<span id="contactAddResult"></span>
+		</div>
 	</div>
 </div>
 

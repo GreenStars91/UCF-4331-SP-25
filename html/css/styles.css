@@ -66,14 +66,30 @@ body
 }
 
 
-#outer
+#CTRL
 {
     width:100%;
     text-align: center;
 }
-.inner
+.float-parent
+{
+    width:100%;
+    overflow: scroll;
+    text-align: center;
+}
+.float-child
+{
+    width:45%;
+    float:left;
+}
+#CTRL div
 {
     display: inline-block;
+}
+
+#addUpdateButton,#delContactButton
+{
+    margin-left: 10%;
 }
 
 #loginName
