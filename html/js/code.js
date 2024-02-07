@@ -216,7 +216,7 @@ function doRegister()
 			if (this.readyState == 4 && this.status == 200) 
 			{
 				let jsonResponse = JSON.parse( xhr.responseText) 
-				if (!jsonRespons.error)
+				if (!jsonResponse.error)
 				{
 					document.getElementById("registerResult").innerHTML = "Register Successful";
 				}
