@@ -1,164 +1,42 @@
+#body
+{
+    background-color: #707070;
 }
 
-.buttons:hover{
-    background-color: #00d5124f;
+#title 
+{
+    font-size: 40px;
+    width: 100%;
+    margin: 2% 5%;
+    text-align: center;
+    font-family: 'Ubuntu', sans-serif;
     color: #FFFFFF;
-    opacity: 50%;
 }
 
-
-#CTRL
+#loginDiv
 {
-    width:100%;
-    text-align: center;
-}
-.float-parent
-{
-    width:100%;
-    overflow: scroll;
-    text-align: center;
-}
-.float-child
-{
-    width:45%;
-    float:left;
-}
-#CTRL div
-{
-    display: inline-block;
+    font-size: 30px;
+    width: 70%;
+    margin-left: 15%;
+    padding: 25px;
+    background-color: #b2b2b2;
 }
 
-#addUpdateButton,#delContactButton
+#loggedInDiv
 {
-    margin-left: 10%;
+    font-size: 30px;
+    width: 70%;
+    margin-left: 15%;
+    padding: 25px;
+    background-color: #b2b2b2;
+    padding-bottom: 0;
 }
 
-#loginName
+#accessUIDiv
 {
-	font-size: 30px;
-}
-#loginPassword
-{
-	font-size: 30px;
-}
-#searchText
-{
-	font-size: 30px;
-}
-#colorText
-{
-	font-size: 30px;
-}
-
-input[type="text"],input[type="password"]{
-    border-radius: 25px;
-    text-align: center;
-    width: 80%;
-    margin-left: 10%;
-    margin-bottom: 2%;
-    font-family: 'Ubuntu', sans-serif;
-}
-
-#inner-title{
-    display: inline-block;
-    font-size: 0.8em;
-    width: 90%;
-    text-align: center;
-    margin-left: 5%;
-    margin-bottom: 2%;
-    font-family: 'Ubuntu', sans-serif;
-    color: #95060a;
-}
-
-#loginResult{
-    display: inline-block;
-    font-size: 0.8em;
-    width: 90%;
-    text-align: center;
-    margin-left: 5%;
-    margin-bottom: 2%;
-    font-family: 'Ubuntu', sans-serif;
-    color: #95060a;
-}
-
-#userName{
-    display: inline-block;
-    width: 80%;
-    margin-left: 10%;
-    text-align: center;
-}
-
-#logoutButton{
-    width: 20%;
-    margin-left: 40%;
-}
-
-select{
-    width: 30%;
-    margin-left: 35%;
-    margin-top: 2%;
-    font-size: 0.75em;
-    font-family: 'Ubuntu', sans-serif;
-}
-
-#colorSearchResult{
-    display: none;
-}
-
-#colorAddResult{
-    display: inline-block;
-    font-size: 0.8em;
-    width: 90%;
-    text-align: center;
-    margin-left: 5%;
-    margin-top: 2%;
-    margin-bottom: 1%;
-    font-family: 'Ubuntu', sans-serif;
-    color: #95060a;
-}
-
-.highlight
-{
-    background-color: yellow;
-}
-
-#message 
-{
-    position: relative;
-    padding: 20px;
-    margin-top: 10px;
-}
-
-#message p 
-{
-    padding: 10px 35px;
-    font-size: 18px;
- }
-  
-  /* Add a green text color and a checkmark when the requirements are right */
-.valid 
-{
-    color: green;
-}
-  
-.valid:before
-{
-    position: relative;
-    /* left: -35px; */
-    content: '\2611';
-}
-  
-  /* Add a red text color and an "x" icon when the requirements are wrong */
-.invalid 
-{
-    color: red;
-}
-  
-.invalid:before 
-{
-    position: relative;
-    left: -35px;
-    content: '\2A2F';
+    font-size: 30px;
+    width: 70%;
+    margin-left: 15%;
     padding: 25px;
     background-color: #b2b2b2;
     padding-top: 0;
