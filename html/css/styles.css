@@ -73,6 +73,32 @@ body
     color: black;
 }
 
+#aboutUsDiv
+{
+    font-size: 30px;
+    font-family: 'Sora', Light;
+    width: 70%;
+    margin-left: 45%;
+    margin-right: 15%;
+
+}
+.row {
+    display: flex;
+    flex-direction: column;
+ }
+.circular--portrait { 
+    width: 150px; 
+    height: 150px; 
+    overflow: hidden; 
+    border-radius: 50%; 
+
+} 
+.circular--portrait img { 
+    width: 100%; 
+    height: auto; 
+}
+
+
 .buttons
 {
     font-size: 30px;
