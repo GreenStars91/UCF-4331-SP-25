@@ -240,6 +240,17 @@ tr:nth-child(even).highlight {
   color: black;
 }
 
+#messageBox
+{
+    font-size: 30px;
+    width: 46%;
+    margin-top: 1%;
+    margin-left: 25%;
+    margin-right: 30%;
+    padding: 25px;
+    background-color: black;
+    padding-bottom: 0;
+}
 #message 
 {
     position: relative;
@@ -247,7 +258,7 @@ tr:nth-child(even).highlight {
     margin-top: 0;
     left: 30%;
     margin-bottom: 6;
-    color: white;
+    color: darkred;
 }
 
 #message p 
