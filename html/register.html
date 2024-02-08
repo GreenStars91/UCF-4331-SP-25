@@ -38,6 +38,7 @@
     </div>
     <input type="password" id="registerPassword2" placeholder="Reenter Password"
     onkeyup="ValidateRegister();"/>
+    <div id="messageBox">
     <div id="message">
         <h3>Your password must contain the following:</h3>
         <p id="letterC" class="invalid">A <b>lowercase</b> letter</p>
@@ -46,6 +47,7 @@
         <p id="specialC" class="invalid">A <b>special character</b></p>
         <p id="lengthC" class="invalid">Minimum <b>8 characters</b></p>
         <p id="matchC" class="invalid">Passwords must match</p>
+    </div>
     </div>
     <button type="button" id="confirmRegister" class="buttons" disabled onclick="doRegister();"> Finish registration </button><br />
     <button type="button" id="registerBackButton" class="buttons" onclick="backToLogin();"> Back to Login </button><br />
