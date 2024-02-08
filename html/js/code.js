@@ -343,26 +343,40 @@ function searchContacts(PageN = 0, _callback)
 				table.append(tr) // Append the header to the table
 				// Loop through the JSON data and create table rows
 				// TODO. use for loop to do this ten times
-				jsonData.forEach((item) => {
-				   let tr = document.createElement("tr");
-				   tr.onclick = function () {highlightOnly(this);};
-				   // Get the values of the current object in the JSON data
-				   let vals = Object.values(item);
-				   // Loop through the values and create table cells
-				   vals.forEach((elem, index) => {
-					  //Skip First index
-					  if (index == 0)
-					  {
-						tr.dataset.ID = elem;
-					  } else
-					  {
-					  	let td = document.createElement("td");
-					 	td.innerText = elem; // Set the value as the text of the table cell
-						tr.appendChild(td); // Append the table cell to the table row
-					  }
-				   });
-				   table.appendChild(tr); // Append the table row to the table
-				});
+				for (let i = 0; i < 10; i++)
+				{
+					let tr = document.createElement("tr");
+					if (i < jsonData.length)
+					{
+						tr.onclick = function () {highlightOnly(this);};
+						// Get the values of the current object in the JSON data
+				   		let vals = Object.values(jsonData[i]);
+				  		// Loop through the values and create table cells
+				  		vals.forEach((elem, index) => {
+					  		//Skip First index
+					  		if (index == 0)
+					  		{
+								tr.dataset.ID = elem;
+					  		} else
+					  		{
+					  			let td = document.createElement("td");
+					 			td.innerText = elem; // Set the value as the text of the table cell
+								tr.appendChild(td); // Append the table cell to the table row
+					  		}
+				   		});
+					}
+					else 
+					{
+						for (let j = 0; j < 4; j++)
+						{
+							let td = document.createElement("td");
+							td.innerText = ' ';
+							console.log(td);
+							tr.appendChild(td); // Append the table cell to the table row
+						}
+					}
+					table.appendChild(tr); // Append the table row to the table
+				}
 				container.appendChild(table) // Append the table to the container element
 				clearSelected();
 				// Run Callback
@@ -589,4 +603,12 @@ function backToWhere()
 function toAboutUs()
 {
 	window.location.href = "about.html";
+}
+
+function onEnter(key)
+{
+	if (key.keyCode == 13)
+	{
+		searchContacts();
+	}
 }
