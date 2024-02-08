@@ -8,6 +8,12 @@
 	document.addEventListener('DOMContentLoaded', function() 
 	{
 		readCookie();
+		searchContacts();
+		document.getElementById("SearchBar").addEventListener("keyup", (event) => {
+  			if (event.key == "Enter") {
+    			searchContacts();
+ 	 		}
+		});
 	}, false);
 	</script>
 	<script type="text/javascript" src="js/code.js"></script>
@@ -24,9 +30,10 @@
 </div>
 
 <div id="accessUIDiv">
-	<input type="text" id="SearchBar"  placeholder="Search Here"/>
-	<button type="button" id="searchContactButton" class="buttons" onclick="searchButtonClick();"> Search Contact </button><br />
-
+	<div id="search">
+		<input type="text" id="SearchBar"  placeholder="Search Here"/>
+		<button type="button" id="searchContactButton" class="buttons" onclick="searchButtonClick();"> &#128269; </button><br />
+	</div>
 	<div class="float-parent">
 		<div class="float-child">
 			<span id="contactSearchResult"></span>
