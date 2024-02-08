@@ -3,7 +3,8 @@ body
     background-color: #19aa20;
     overflow-x: hidden;
     background-image: url(../images/casinobackground.jpg);
-    background-size: 100%
+    background-size: 100%;
+    color: white;
 }
 
 #message h3 {
@@ -70,7 +71,7 @@ body
     color: #95060a;
     background-color: #0c4524;
     font-family: 'Sora', Light;
-    color: black;
+    color: white;
 }
 
 .buttons
@@ -228,6 +229,8 @@ select{
     color: black;
 }
 
+
+
 input::placeholder {
   color: #bb595bba;
   opacity: 1;
@@ -247,7 +250,7 @@ tr:nth-child(even).highlight {
     margin-top: 1%;
     margin-left: 25%;
     margin-right: 30%;
-    padding: 25px;
+    padding: 0px 25px 25px 25px;
     background-color: black;
     padding-bottom: 0;
 }
@@ -258,7 +261,7 @@ tr:nth-child(even).highlight {
     margin-top: 0;
     left: 30%;
     margin-bottom: 6;
-    color: darkred;
+    color: red;
 }
 
 #message p 
@@ -271,7 +274,7 @@ tr:nth-child(even).highlight {
   /* Add a green text color and a checkmark when the requirements are right */
 .valid 
 {
-    color: darkgreen;
+    color: green;
 }
   
 .valid:before
@@ -284,7 +287,7 @@ tr:nth-child(even).highlight {
   /* Add a red text color and an "x" icon when the requirements are wrong */
 .invalid 
 {
-    color: darkred;
+    color: red;
 }
   
 .invalid:before 
@@ -334,4 +337,10 @@ td {
   margin: 0 0 0 2.5%;
   max-width: 45%;
   align-content: center;
+}
+
+
+#registerDiv input {
+  font-size: large;
+  padding: 8;
 }
