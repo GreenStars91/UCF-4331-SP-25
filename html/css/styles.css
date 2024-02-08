@@ -1,6 +1,8 @@
 #body
 {
     background-color: #707070;
+    overflow-x: hidden;
+    background-image: "../images/background.png"
 }
 
 #title 
@@ -248,8 +250,6 @@ td {
   border: 1px solid darkgray;
 }
 
-#CT {
-}
 #CTRL div .buttons {
   width: fit-content;
 }
